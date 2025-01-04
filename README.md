@@ -1,91 +1,95 @@
 # Configurazione dell'Ambiente di Sviluppo
 
-Questo repository funge da configurazione per l'ambiente di sviluppo del progetto bookinghub con backend (Django + DRF) e frontend (React) separati. Utilizza Docker Compose per orchestrare i servizi, garantendo un workflow di sviluppo coerente ed efficiente.
+Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi frontend, backend e database necessari al funzionamento del progetto BookingHub
 
 ---
+
+## Indice
+
+- [Introduzione](#introduzione)
+- [Caratteristiche](#caratteristiche)
+- [Prerequisiti](#prerequisiti)
+- [Installazione](#installazione)
+- [Deployment](#deployment)
+- [Licenza](#licenza)
+
+---
+
+## Introduzione
+
+**BookingHub-Dev-Environment** rappresenta l'orchestratore di un progetto composto da backend (https://github.com/bugman80/bookinghub-backend) e frontend (https://github.com/bugman80/bookinghub-frontend), questo repository e' nato per facilitare il setup e run dell'ambiente di sviluppo tramite un docker-compose che consente di orchestrare entrambi i layer ed il database PostgreSQL
+
+## Caratteristiche
+
+- docker-compose file per il build e run dei servizi frontend, backend e database
+- .env.example file per facilitare la creazione di un file con le variabili di ambiente necessarie
 
 ## Prerequisiti
 
-Prima di iniziare, assicurati di avere installato:
+- **Git**
+- **Docker**
+- **Docker-Compose**
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- Git
+## Installazione
 
----
-
-## Struttura del Repository
-
-Questo repository ha la seguente struttura:
+Segui questi passaggi per configurare l'applicazione in locale, questo comportera' clonare il repository backend, il repository frontend ed il repository contenente l'orchestratore dei servizi. I tre repository devono essere clonati nella stessa directory che avra' quindi la seguente struttura finale:
 
 ```
-/bookinghub-dev-environment/        # Questo repository
+/bookinghub-dev-environment/   # Clone del repository di orchestrazione
 |
-├── docker-compose.yml   # File di configurazione di Docker Compose
-├── .env                 # Variabili di ambiente per i servizi
-└── README.md            # Documentazione (questo file)
+├── docker-compose.yml
+├── .env
+└── README.md
 
 /bookinghub-backend/           # Clone del repository backend
 /bookinghub-frontend/          # Clone del repository frontend
 ```
 
----
-
-## Istruzioni di Configurazione
-
-### 1. Clona i Repository
-
-Clona i repository backend e frontend nella stessa directory di questo repository:
+### 1. Entra nella directory che hai scelto per contenere i tre repository di progetto
 
 ```bash
-git clone https://github.com/bugman80/bookinghub-backend
-git clone https://github.com/bugman80/bookinghub-frontend
+cd CartellaDiPreferenza
 ```
 
-alla fine la directory che hai scelto per clonare i 3 repositories dovrebbe avere questa struttura:
+### 2. Clona il repository backend
 
-```
-/bookinghub-dev-environment/        # Questo repository
-|
-├── docker-compose.yml   # File di configurazione di Docker Compose
-├── .env                 # Variabili di ambiente per i servizi
-└── README.md            # Documentazione (questo file)
-
-/bookinghub-backend/           # Clone del repository backend
-/bookinghub-frontend/          # Clone del repository frontend
+```bash
+git clone https://github.com/bugman80/bookinghub-backend.git
 ```
 
-### 2. Configura le Variabili di Ambiente
+### 3. Clona il repository frontend
 
-Crea un file `.env` nella root di questo repository (rifacendoti a `.env.example`) per definire le variabili di ambiente:
+```bash
+git clone https://github.com/bugman80/bookinghub-frontend.git
+```
 
-### 3. Costruisci e Avvia i Servizi
+### 4. Clona il repository di orchestrazione e configura le variabili di ambiente
+
+```bash
+git clone https://github.com/bugman80/bookinghub-dev-environment.git
+cd bookinghub-dev-environment
+```
+Crea un file `.env` nella root di questo repository (rifacendoti a `.env.example`) per definire le variabili di ambiente
+
+### 5. Costruisci e Avvia i Servizi
 
 Esegui il seguente comando per costruire e avviare i servizi:
 
 ```bash
-docker-compose up --build
+docker-compose up
 ```
 
 Questo comando:
 - Costruirà le immagini per backend e frontend
-- Avvierà i servizi backend, frontend e database PostgreSQL
+- Avvierà i servizi backend, frontend e il database PostgreSQL
 
-### 4. Accedi ai Servizi
+### 6. Accedi ai Servizi
 
 - **Frontend**: [http://localhost:3000](http://localhost:3000)
 - **Backend (API)**: [http://localhost:8000](http://localhost:8000)
 - **PostgreSQL**: Accessibile sulla porta `5432`
 
----
-
-## Workflow di Sviluppo
-
-### Hot Reload
-
-I repository backend e frontend sono montati come volumi nei rispettivi container. Qualsiasi modifica al codice sorgente attiverà l'hot reload sia per Django che per React.
-
-### Arrestare i Servizi
+### 7. Arrestare i Servizi
 
 Per arrestare i servizi, premi `Ctrl+C` o esegui:
 
@@ -93,39 +97,9 @@ Per arrestare i servizi, premi `Ctrl+C` o esegui:
 docker-compose down
 ```
 
-### Ricostruire i Servizi
+## Deployment
 
-Se apporti modifiche al `Dockerfile` o alle dipendenze, ricostruisci i servizi con:
-
-```bash
-docker-compose up --build
-```
-
----
-
-## Risoluzione dei Problemi
-
-### Problemi Comuni
-
-- **Conflitti di Porta**: Assicurati che le porte `3000`, `8000` e `5432` non siano utilizzate da altri processi.
-- **Errori nelle Variabili di Ambiente**: Verifica che tutte le variabili richieste siano definite nel file `.env`.
-- **Persistenza del Database**: I dati di PostgreSQL sono memorizzati in un volume Docker (`postgres_data`). Per resettare il database, rimuovi il volume:
-
-  ```bash
-  docker-compose down -v
-  ```
-
-### Visualizzare i Log
-
-Per visualizzare i log di un servizio specifico:
-
-```bash
-docker-compose logs <nome-servizio>
-```
-
-Sostituisci `<nome-servizio>` con `backend`, `frontend` o `db`.
-
----
+L'applicazione e' attualmente rilasciata automaticamente su Railway (https://railway.app/).
 
 ## Licenza
 
