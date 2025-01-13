@@ -1,6 +1,9 @@
 # Configurazione dell'Ambiente di Sviluppo
 
-Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi frontend, backend e database necessari al funzionamento del progetto BookingHub
+![Docker](https://img.shields.io/badge/Docker-27.5.0-brightgreen)
+![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2.32.3-brightgreen)
+
+Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi frontend, backend e database necessari al funzionamento del progetto BookingHub, le linee guida che seguono sono testate su ambienti unix-like (linux, macos) con le versioni di docker e docker compose su menzionate
 
 ---
 
@@ -32,7 +35,7 @@ Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi fronten
 
 ## Installazione
 
-Segui questi passaggi per configurare l'applicazione in locale, questo comportera' clonare il repository backend, il repository frontend ed il repository contenente l'orchestratore dei servizi. I tre repository devono essere clonati nella stessa directory che avra' quindi la seguente struttura finale:
+Segui questi passaggi per configurare l'applicazione in locale, questo comportera' clonare il repository backend, il repository frontend ed il repository contenente l'orchestratore dei servizi. I tre repository devono essere clonati nella stessa directory che deve avere quindi la seguente struttura finale:
 
 ```
 /bookinghub-dev-environment/   # Clone del repository di orchestrazione
@@ -69,19 +72,21 @@ git clone https://github.com/bugman80/bookinghub-frontend.git
 git clone https://github.com/bugman80/bookinghub-dev-environment.git
 cd bookinghub-dev-environment
 ```
-Crea un file `.env` nella root di questo repository (rifacendoti a `.env.example`) per definire le variabili di ambiente (le variabili relative a Gmail sono opzionali, se si vuole attivare l'invio di notifiche email e' necessario configurare un account Gmail esistente o crearne uno ad hoc e configurarlo: https://support.google.com/a/answer/176600?hl=en)
+Crea un file `.env` nella root di questo repository, utilizza il file `.env.example`, rinominalo e sostituisci i valori con quelli che preferisci. Le variabili relative a Gmail sono opzionali, se si vuole attivare l'invio di notifiche email e' necessario configurare un account Gmail esistente o crearne uno ad hoc e configurarlo: https://support.google.com/a/answer/176600?hl=en altrimenti se si lasciano i valori attuali/fake semplicemente le email non verranno inviate.
 
 ### 5. Costruisci e Avvia i Servizi
 
 Esegui il seguente comando per costruire e avviare i servizi:
 
 ```bash
-docker-compose up --build
+docker compose up
 ```
 
 Questo comando:
 - Costruirà le immagini per backend e frontend
 - Avvierà i servizi backend, frontend e il database PostgreSQL
+- Creera' le tabelle sul database
+- Creera' un superuser iniziale
 
 ### 6. Accedi ai Servizi
 
@@ -91,11 +96,7 @@ Questo comando:
 
 ### 7. Arrestare i Servizi
 
-Per arrestare i servizi, premi `Ctrl+C` o esegui:
-
-```bash
-docker-compose down
-```
+Per arrestare i servizi, premi `Ctrl+C`
 
 ## Deployment
 
