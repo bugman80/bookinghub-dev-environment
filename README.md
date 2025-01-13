@@ -3,7 +3,7 @@
 ![Docker](https://img.shields.io/badge/Docker-27.5.0-brightgreen)
 ![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2.32.3-brightgreen)
 
-Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi frontend, backend e database necessari al funzionamento del progetto BookingHub, le linee guida che seguono sono testate su ambienti unix-like (linux, macos) con le versioni di docker e docker compose su menzionate
+Questo repository ha lo scopo di facilitare l'orchestrazione dei servizi frontend, backend e database necessari al funzionamento del progetto BookingHub, le linee guida che seguono sono testate su ambienti unix-like (linux, macos) con le versioni di docker e docker compose su menzionate ed i comandi sono pensati per un utilizzo da terminale.
 
 ---
 
